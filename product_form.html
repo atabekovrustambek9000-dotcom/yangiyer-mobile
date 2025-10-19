@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="box">
+    <h2>{% if product %}Mahsulotni tahrirlash{% else %}Yangi mahsulot{% endif %}</h2>
+    <form method="post">
+      <input name="sku" placeholder="SKU (ixtiyoriy)" value="{{ product.sku if product else '' }}">
+      <input name="name" placeholder="Mahsulot nomi" value="{{ product.name if product else '' }}" required>
+      <textarea name="description" placeholder="Tavsif">{{ product.description if product else '' }}</textarea>
+      <input name="price" placeholder="Narx (so'm)" value="{{ product.price if product else '' }}" required>
+      <input name="stock" placeholder="Stok (dona)" value="{{ product.stock if product else 0 }}">
+      <button type="submit">Saqlash</button>
+      <a class="btn" href="{{ url_for('admin_dashboard') }}">Ortga</a>
+    </form>
+  </div>
+{% endblock %}
