@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="topbar">
+    <h2>👑 Admin panel</h2>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('admin_product_new') }}">Yangi mahsulot</a>
+      <a class="btn" href="{{ url_for('admin_user_new') }}">Yangi foydalanuvchi</a>
+      <a class="btn" href="{{ url_for('admin_export_sales') }}">Export CSV</a>
+      <a class="btn danger" href="{{ url_for('logout') }}">Chiqish</a>
+    </div>
+  </header>
+
+  <section class="admin-grid">
+    <div class="card">
+      <h3>Mahsulotlar</h3>
+      <table>
+        <tr><th>ID</th><th>Nom</th><th>Narx</th><th>Stok</th><th>Amal</th></tr>
+        {% for p in products %}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.price }} so'm</td>
+          <td>{{ p.stock }}</td>
+          <td>
+            <a class="small" href="{{ url_for('admin_product_edit', pid=p.id) }}">Tahrirlash</a>
+            <form style="display:inline" method="post" action="{{ url_for('admin_product_delete', pid=p.id) }}" onsubmit="return confirm('O‘chirishni xohlaysizmi?')">
+              <button class="small danger" type="submit">O'chirish</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Foydalanuvchilar</h3>
+      <table>
+        <tr><th>ID</th><th>Login</th><th>Rol</th><th>Amal</th></tr>
+        {% for u in users %}
+        <tr>
+          <td>{{ u.id }}</td><td>{{ u.username }}</td><td>{{ u.role }}</td>
+          <td>
+            {% if u.role != 'admin' %}
+            <form method="post" action="{{ url_for('admin_user_delete', uid=u.id) }}" onsubmit="return confirm('O‘chirishni xohlaysizmi?')">
+              <button class="small danger" type="submit">O'chirish</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="card wide">
+      <h3>Sotuvlar (oxirgi 50)</h3>
+      <table>
+        <tr><th>ID</th><th>Sotuvchi</th><th>Summa</th><th>Sana</th></tr>
+        {% for s in sales %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.seller or '—' }}</td>
+          <td>{{ s.total }} so'm</td>
+          <td>{{ s.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </section>
+{% endblock %}

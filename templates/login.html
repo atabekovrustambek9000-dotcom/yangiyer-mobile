@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="box center">
+    <h1>Yangiyer Mobile</h1>
+    <p class="muted">Doʻkon avtomatlashtirish tizimi</p>
+    <form method="post" action="{{ url_for('login') }}">
+      <input name="username" placeholder="Foydalanuvchi" required>
+      <input name="password" type="password" placeholder="Parol" required>
+      <button type="submit">Kirish</button>
+    </form>
+    <p class="hint">admin/admin123 yoki seller1..seller4 / 1234</p>
+  </div>
+{% endblock %}

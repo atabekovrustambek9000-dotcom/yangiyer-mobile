@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="topbar">
+    <h2>🛒 POS</h2>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('logout') }}">Chiqish</a>
+    </div>
+  </header>
+
+  <div class="box">
+    <h3>Sotish</h3>
+    <form method="post">
+      <select name="product_id" required>
+        {% for p in products %}
+          <option value="{{ p.id }}">{{ p.name }} — {{ p.price }} so'm ({{ p.stock }} dona)</option>
+        {% endfor %}
+      </select>
+      <input name="qty" type="number" min="1" value="1" placeholder="Miqdor">
+      <button type="submit">Sotish</button>
+    </form>
+
+    <h4>So'nggi savdolar</h4>
+    <ul>
+      {% for s in sales %}
+        <li>{{ s.created_at }} — {{ s.items }} — {{ s.total }} so'm</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

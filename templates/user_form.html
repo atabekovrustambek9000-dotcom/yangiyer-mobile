@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="box">
+    <h2>Yangi foydalanuvchi</h2>
+    <form method="post">
+      <input name="username" placeholder="Foydalanuvchi nomi" required>
+      <input name="password" placeholder="Parol" required>
+      <select name="role">
+        <option value="seller">Sotuvchi</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit">Yaratish</button>
+      <a class="btn" href="{{ url_for('admin_dashboard') }}">Ortga</a>
+    </form>
+  </div>
+{% endblock %}
